@@ -1,0 +1,23 @@
+.aside-content {
+  display: flex;
+  flex: 1;
+}
+.aside-image {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .side-content {
+    width: 768px;
+    /* position: absolute; */
+    /* z-index: -1; */
+  }
+}
+@media (max-width: 480px) {
+  .side-content {
+    width: 480px;
+    /* position: absolute; */
+    /* z-index: -1; */
+  }
+}

@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap");
+
+*,
+::before,
+::after {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+.cardHistory {
+  width: 380px;
+  height: 126px;
+  display: flex;
+  align-items: center;
+  padding: 25px 28px 25px 28px;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+.img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.product {
+  width: 100%;
+}
+.title-prod {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 25px;
+  color: #000000;
+  line-height: 30px;
+  margin-bottom: 0px;
+}
+.price {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 20px;
+  color: #895537;
+  line-height: 30px;
+  margin-bottom: 0px;
+}
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.textdeliv {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 20px;
+  color: #6a4029;
+  line-height: 30px;
+  margin-bottom: 0px;
+}
+.checkbox {
+  width: 25px;
+  height: 25px;
+}
+@media (max-width: 768px) {
+  .cardHistory {
+    border: 1px solid #d7d6d6;
+  }
+  .title-prod {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+  .price {
+    font-size: 16px;
+    margin-bottom: 0px;
+  }
+  .status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .textdeliv {
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+}

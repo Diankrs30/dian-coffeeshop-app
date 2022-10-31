@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&family=Rubik:wght@400;500;700&display=swap");
+
+*,
+::before,
+::after {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+.container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0.1px solid #dddfe4;
+}
+.cursor {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+/* main */
+.container-main {
+  background-image: url("../../assets/img/bg-history.png");
+  background-position-y: 33%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 89px;
+  padding-top: 87px;
+  padding-left: 130px;
+  padding-right: 130px;
+}
+.text1 {
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
+}
+.text2 {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
+}
+.selectdelete {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.select, .delete {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+
+  margin-bottom: 0px;
+}
+.select:active, .delete:active {
+  font-weight: 500;
+}
+.history {
+  margin-top: 37px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  row-gap: 15px;
+  column-gap: 15px;
+}
+@media (max-width: 1024px) {
+  .history {
+    margin-top: 37px;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 15px;
+    column-gap: 30px;
+  }
+  .container-main {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+@media (max-width: 768px) {
+  .container-main {
+    background-image: none;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .history {
+    margin-top: 37px;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 15px;
+    column-gap: 15px;
+  }
+  .text1, .text2 {
+    color: #000;
+    text-shadow: none;
+  }
+}
+@media (max-width: 480px) {
+  .history {
+    margin-top: 37px;
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 15px;
+    column-gap: 15px;
+  }
+  .text1 {
+    font-size: 30px;
+  }
+}

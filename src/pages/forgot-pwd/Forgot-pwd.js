@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Forgot-pwd.module.css";
+import withNavigate from "../../helpers/withNavigate";
 
 import asideImg2 from "../../assets/img/asideImg2.png";
 import coffee from "../../assets/img/coffee-1.png";
@@ -7,7 +8,10 @@ import facebook from "../../assets/img/facebook.png";
 import twitter from "../../assets/img/twitter.png";
 import instagram from "../../assets/img/instagram.png";
 
-function ForgotPwd() {
+function ForgotPwd({navigate}) {
+  const onClickHandler = (to) => {
+    navigate(to);
+  };
   return (
     <>
       <main className={styles.container}>
@@ -29,9 +33,7 @@ function ForgotPwd() {
                   src={coffee}
                   alt="dian-coffeeshop"
                 />
-                <a href="./index.html" className={styles["text-logo"]}>
-                  Coffee Shop
-                </a>
+                <div className={styles["text-logo"]} onClick={() => onClickHandler("/login")}>Coffee Shop</div>
               </section>
             </header>
             <section
@@ -57,7 +59,9 @@ function ForgotPwd() {
                   <p className={styles["btn-text1"]}>Send</p>
                 </div>
               </form>
-              <p className={styles["text-link"]}>Click here if you didn&#39;t receive any link in 2 minutes</p>
+              <p className={styles["text-link"]}>
+                Click here if you didn&#39;t receive any link in 2 minutes
+              </p>
               <p className={styles["text-link2"]}>Timer</p>
               <div
                 className={`${styles.button} ${styles.link} ${styles.cursor}`}
@@ -66,7 +70,7 @@ function ForgotPwd() {
                   Resend Link
                 </a>
               </div>
-             </section>
+            </section>
           </section>
           <footer className={`${styles["footer-content"]} ${styles.footer}`}>
             <aside className={styles["about-coffeeshop"]}>

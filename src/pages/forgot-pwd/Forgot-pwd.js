@@ -142,4 +142,4 @@ function ForgotPwd({navigate}) {
   );
 }
 
-export default ForgotPwd;
+export default withNavigate(ForgotPwd);

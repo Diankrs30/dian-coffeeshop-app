@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./ProductDetail.module.css";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer2/Footer2";
+import withNavigate from "../../helpers/withNavigate";
 
 import icon from "../../assets/img/icon-food.png";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../../utils/api";
 
-function ProductDetail() {
-  const {id} = useParams()
-  const [product,setProduct] = useState({})
+function ProductDetail({ navigate }) {
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
   // console.log(product);
   const rupiah = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -19,17 +20,24 @@ function ProductDetail() {
   };
   const getDetail = async () => {
     try {
-      const result = await getProductById(id)
+      const result = await getProductById(id);
       console.log(result);
-      setProduct(result.data.data[0])
+      setProduct(result.data.data[0]);
     } catch (error) {
       console.log(error);
+      if (error.response.data.statusCode === 403) {
+        navigate("/login");
+      }
     }
-  }
+  };
+  const onClickHandler = (to) => {
+    navigate(to);
+  };
+
   useEffect(() => {
-    getDetail()
-  }, [])
-  
+    getDetail();
+  }, []);
+
   return (
     <>
       <div className={styles.container}>
@@ -43,13 +51,17 @@ function ProductDetail() {
             <div className={styles.img}>
               <img
                 className={styles["img-prod"]}
-                src={product.image!==''?"http://localhost:8070" +product.image:icon} alt="" />
+                src={
+                  product.image !== ""
+                    ? "http://localhost:8070" + product.image
+                    : icon
+                }
+                alt=""
+              />
             </div>
             <div className={styles["prod-detail"]}>
               <p className={styles.text3}>{product.product_name}</p>
-              <p className={styles.text4}>
-                {product.product_description}
-              </p>
+              <p className={styles.text4}>{product.product_description}</p>
             </div>
           </secttion>
           <section className={styles.order}>
@@ -145,7 +157,11 @@ function ProductDetail() {
                 <div>
                   <img
                     className={styles["img-prod2"]}
-                    src={product.image!==''?"http://localhost:8070" +product.image:icon}
+                    src={
+                      product.image !== ""
+                        ? "http://localhost:8070" + product.image
+                        : icon
+                    }
                     alt=""
                   />
                 </div>
@@ -155,7 +171,10 @@ function ProductDetail() {
                   <p className={styles.text12}>r &#40;Reguler&#41;</p>
                 </div>
               </div>
-              <div className={styles.toCheckout}>
+              <div
+                className={styles.toCheckout}
+                onClick={() => onClickHandler("/detail-transaction")}
+              >
                 <p className={styles.text13}>Checkout</p>
                 <button
                   className={`${styles["checkout-button"]} ${styles.cursor}`}
@@ -174,4 +193,4 @@ function ProductDetail() {
   );
 }
 
-export default ProductDetail;
+export default withNavigate(ProductDetail);

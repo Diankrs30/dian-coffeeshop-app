@@ -7,7 +7,7 @@ import { getHistory } from "../../utils/api";
 
 // import bgHistory from "../../assets/img/bg-history.png"
 
-function History() {
+function History({navigate}) {
   const [allHistory, setAllHistory] = useState([]);
   const [dataCeklist, setDataCeklist] = useState([{}])
 
@@ -19,6 +19,9 @@ function History() {
     try {
     } catch (error) {
       console.log(error);
+      if (error.response.data.statusCode === 403) {
+        navigate("/login");
+      }
     }
   };
   useEffect(() => {
@@ -42,8 +45,8 @@ function History() {
           </section>
           <section className={styles.history}>
             {allHistory.map((item, index) => {
-              const data = {...item,ceklistItem:dataCeklist, setCeklist:setDataCeklist()}
-              return <CardHistory key={index} data={data} />
+              // const data = {...item,ceklistItem:dataCeklist, setCeklist:setDataCeklist()}
+              return <CardHistory key={index} data={item} />
             })}
           </section>
         </main>

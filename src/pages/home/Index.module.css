@@ -518,10 +518,10 @@
 .promo {
   width: 30%;
 }
-.footer {
-  margin-top: -200px;
-  z-index: -1;
+.check-promo {
+  transform: translateY(70%);
 }
+
 @media (max-width: 768px) {
   .main-container {
     width: 768px;
@@ -739,16 +739,13 @@
     padding: 30px;
     flex-direction: column;
     align-items: center;
+    transform: translateY(30%);
   }
   .promo {
     width: 100%;
-    /* align-items: center; */
   }
   .text-check1 {
     font-size: 25px;
     margin-bottom: 0px;
-  }
-  .footer {
-    margin-top: 0px;
   }
 }

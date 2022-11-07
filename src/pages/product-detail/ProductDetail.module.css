@@ -123,6 +123,14 @@
   margin-right: 15px;
   margin-bottom: 51px;
 }
+.loading{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25%;
+  padding-bottom: 40%;
+}
 .box1:active,
 .box2:active {
   font-family: "Poppins";
@@ -348,20 +356,28 @@
   text-align: center;
   color: #000000;
 }
-.size {
+.size, .sizeFood {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   border: none;
   background: #ffba33;
-
+}
+.size {
   font-family: "Poppins";
   font-weight: 700;
   font-size: 30px;
   text-align: center;
   color: #000000;
 }
-.size:active {
+.sizeFood {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}
+.size:active, .sizeFood:active {
   background: #6a4029;
   color: #ffffff;
 }

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import authAction from "../../redux/action/auth";
 import styles from "./Register.module.css";
 import withNavigate from "../../helpers/withNavigate";
 import { signup } from "../../utils/api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import asideImg from "../../assets/img/aside-img.png";
 import coffee from "../../assets/img/coffee-1.png";
@@ -9,11 +13,14 @@ import google from "../../assets/img/google.png";
 import facebook from "../../assets/img/facebook.png";
 import twitter from "../../assets/img/twitter.png";
 import instagram from "../../assets/img/instagram.png";
+import eyeSlash from "../../assets/img/eyeSlash.png";
+import eye from "../../assets/img/eye.png";
 
 class Register extends Component {
   state = {
     isPwdShown: false,
   };
+
   handleSubmit = async (event) => {
     event.preventDefault();
     const body = {
@@ -21,15 +28,24 @@ class Register extends Component {
       password_user: event.target.password.value,
       phone_number: event.target.phone.value,
     };
-    console.log(body);
+    // console.log(body);
     try {
-      const result = await signup(body);
-      console.log(result);
-      alert("Register success");
-      this.props.navigate("/login");
+      // const result = await signup(body);
+      await this.props.dispatch(authAction.signUpAction(body));
+      toast.success("Register success", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        this.props.navigate("/login");
+      }, 3000);
     } catch (error) {
       console.log(error);
-      // alert(error)
+
+      toast.error(error.response.data.status, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
     }
   };
 
@@ -92,16 +108,16 @@ class Register extends Component {
                       required
                       placeholder="Enter your password"
                     />
-                    <span>show password</span>
-                    <input
-                      className={styles["show-pwd"]}
-                      type="checkbox"
-                      defaultChecked={false}
-                      onChange={() => {
-                        // console.log("triggered");
-                        this.setState((prevState) => ({
-                          isPwdShown: prevState.isPwdShown ? false : true,
-                        }));
+                    <span>show password  </span>
+                    <img
+                      className={styles["icon-eye"]}
+                      src={this.state.isPwdShown ? eye : eyeSlash}
+                      alt=""
+                      onClick={() => {
+                        const isShown = this.state.isPwdShown
+                        this.setState({isPwdShown: !isShown})
+                        console.log(this.state.isPwdShown);
+                      
                       }}
                     />
                   </div>
@@ -121,6 +137,7 @@ class Register extends Component {
                   >
                     <p className={styles["btn-text1"]}>Sign Up</p>
                   </button>
+                  <ToastContainer />
                   <div
                     className={`${styles.button} ${styles.secondary} ${styles.cursor}`}
                   >
@@ -218,5 +235,8 @@ class Register extends Component {
     );
   }
 }
+const mapStateToProps = (reduxState) => {
+  return reduxState;
+};
 
-export default withNavigate(Register);
+export default connect(mapStateToProps)(withNavigate(Register));

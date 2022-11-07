@@ -120,7 +120,10 @@
   font-size: 20px;
   color: #9f9f9f;
 }
-
+.icon-eye {
+  width: 20px;
+  height: 20px;
+}
 .input-div2 {
   width: 65%;
   margin-bottom: 51px;

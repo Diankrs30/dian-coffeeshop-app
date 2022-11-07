@@ -114,6 +114,10 @@
   width: 15px;
   height: 15px;
 }
+.icon-eye {
+  width: 20px;
+  height: 20px;
+}
 .cursor {
   cursor: pointer;
   -webkit-user-select: none; /* Safari */

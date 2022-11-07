@@ -1,89 +1,215 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./Product.module.css";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import CardProduct from "../../components/cardProduct/CardProduct";
 import CardCoupon from "../../components/cardCoupon/CardCoupon";
-import { getProduct } from "../../utils/api";
-// import withSearchParams from "../helpers/withSearchParams";
+// import { getProduct } from "../../utils/api";
+import withSearchParams from "../../helpers/withSearchParams";
+import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import productAction from "../../redux/action/product";
+import IsLoading from "../../components/isLoading/IsLoading";
+const useQuery = () => {
+  const { search } = useLocation();
+  return useMemo(() => new URLSearchParams(search), [search]);
+};
 
-function Product() {
-  // const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+function Product(props) {
+  const dispatch = useDispatch();
   const coupon = [0, 1, 2, 3];
-  const [allProduct, setAllProduct] = useState([]);
+  const navigate = useNavigate();
+  const getQuery = useQuery();
+  const allProduct = useSelector((state) => state.getAllProduct.allProduct);
+  const totalPage = useSelector((state) => state.getAllProduct.meta.totalPage);
+  const isPending = useSelector((state) => state.getAllProduct.isLoading);
+  const [thisPage, setThisPage] = useState(1);
+  const login = JSON.parse(localStorage.getItem("login"));
+  const role = login.role;
+  // console.log(totalPage);
   const [param, setParam] = useState({
-    category: "",
-    sort: "",
-    order: "asc",
+    search: getQuery.get("search") ?? "",
+    category: getQuery.get("category") ?? "",
+    sort: getQuery.get("sort") ?? "",
+    order: getQuery.get("order") ?? "asc",
+    page: getQuery.get("page") ?? "1",
+    limit: getQuery.get("limit") ?? "12",
   });
-
+  // console.log("jalan useEffect",param);
   const getAllProduct = async () => {
     try {
-      const result = await getProduct(param);
-      setAllProduct(result.data.data);
+      // console.log('test',getQuery.get("search"));
+      if (getQuery.get("search")) {
+        const body = {
+          search: getQuery.get("search") ?? "",
+          category: "",
+          sort: "",
+          order: "asc",
+        };
+        // setParam(body);
+        await dispatch(productAction.getAllProductAction(body));
+      }
     } catch (error) {
       console.log(error);
     }
   };
+const handleSort = async (e) => {
+  try {
+    
+    console.log(e.target.value);
+    const body = {
+      ...param,
+      sort:'created_at',
+      order: e.target.value
+      
+    }
+    
+    setParam(body);
+    props.setSearchParams(body);
+    await dispatch(productAction.getAllProductAction(body));
+  } catch (error) {
+    console.log(error);
+  }
+
+
+}
   const handleNonCofee = async () => {
-    console.log("sasa");
-    //   setParam({...param,category:'Non Coffe'})
-    // getProduct()
     try {
-      const body = { ...param, category: "Non Coffe", sort: "", order: "asc" };
+      const body = {
+        ...param,
+        search: "",
+        category: "Non Coffe",
+        sort: "",
+        order: "asc",
+      };
       setParam(body);
-      const result = await getProduct(body);
-      setAllProduct(result.data.data);
+      props.setSearchParams(body);
+      await dispatch(productAction.getAllProductAction(body));
     } catch (error) {
       console.log(error);
     }
   };
   const handleFavorite = async () => {
-    console.log("abc");
     try {
       const body = {
         ...param,
+        search: "",
         sort: "total_selling",
         order: "desc",
         category: "",
       };
       setParam(body);
-      const result = await getProduct(body);
-      setAllProduct(result.data.data);
+      props.setSearchParams(body);
+
+      await dispatch(productAction.getAllProductAction(body));
     } catch (error) {
       console.log(error);
     }
   };
   const handleFood = async () => {
-    console.log("sasa");
-    //   setParam({...param,category:'Non Coffe'})
-    // getProduct()
     try {
-      const body = { ...param, category: "Food", sort: "", order: "asc" };
+      const body = {
+        ...param,
+        search: "",
+        category: "Food",
+        sort: "",
+        order: "asc",
+      };
       setParam(body);
-      const result = await getProduct(body);
-      setAllProduct(result.data.data);
+      props.setSearchParams(body);
+
+      await dispatch(productAction.getAllProductAction(body));
     } catch (error) {
       console.log(error);
     }
   };
   const handleCoffee = async () => {
-    console.log("sasa");
-    //   setParam({...param,category:'Non Coffe'})
-    // getProduct()
     try {
-      const body = { ...param, category: "Coffee", sort: "", order: "asc" };
+      const body = {
+        ...param,
+        search: "",
+        category: "Coffee",
+        sort: "",
+        order: "asc",
+      };
       setParam(body);
-      const result = await getProduct(body);
-      setAllProduct(result.data.data);
+      props.setSearchParams(body);
+
+      await dispatch(productAction.getAllProductAction(body));
     } catch (error) {
       console.log(error);
     }
   };
+  const handleOldest = async () => {
+    try {
+      const body = {
+        sort: "created_at",
+        order: "desc",
+      };
+      setParam(body);
+      props.setSearchParams(body);
+
+      await dispatch(productAction.getAllProductAction(body));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleNewest = async () => {
+    try {
+      const body = {
+        sort: "created_at",
+        order: "asc",
+      };
+      setParam(body);
+      props.setSearchParams(body);
+
+      await dispatch(productAction.getAllProductAction(body));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleNext = async () => {
+    try {
+      if (thisPage < totalPage) {
+        const page = thisPage + 1;
+        setThisPage(page);
+        const body = { ...param, page };
+        props.setSearchParams(body);
+
+        await dispatch(productAction.getAllProductAction(body));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handlePrev = async () => {
+    try {
+      if (thisPage > 1) {
+        const page = thisPage - 1;
+        setThisPage(page);
+        const body = { ...param, page };
+        props.setSearchParams(body);
+
+        await dispatch(productAction.getAllProductAction(body));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleAddProduct = () => {
+    navigate("/add-product");
+  };
+
+  const handleAddPromo = () => {
+    navigate("/add-promo");
+  };
 
   useEffect(() => {
-    getAllProduct();
+    dispatch(productAction.getAllProductAction(param));
   }, []);
+  useEffect(() => {
+    getAllProduct();
+  }, [getQuery]);
 
   return (
     <>
@@ -118,6 +244,14 @@ function Product() {
                 <li>Should make member card to apply coupon</li>
               </ol>
             </div>
+            {role === "admin" ? (
+              <button
+                className={styles["add-product"]}
+                onClick={handleAddPromo}
+              >
+                Add new promo
+              </button>
+            ) : null}
           </aside>
           <section className={styles["products-lists"]}>
             <section className={`${styles["nav-product"]} ${styles.flex}`}>
@@ -149,14 +283,41 @@ function Product() {
                 Add-on
               </div>
             </section>
-            <div className={styles["product-lists"]}>
-              {allProduct.map((item, index) => {
-                return <CardProduct key={index} data={item} />;
-              })}
+            <select className={styles.dropdown} onChange={handleSort}>
+              <option value="">Sort by</option>
+              <option value="asc" onClick={handleOldest}>Oldest</option>
+              <option value="desc" onClick={handleNewest}>Newest</option>
+            </select>
+            {isPending ? (
+              <div className={`${styles.loading}`}>
+                <IsLoading />
+              </div>
+            ) : (
+              <div className={styles["product-lists"]}>
+                {allProduct.map((item, index) => {
+                  return <CardProduct key={index} data={item} />;
+                })}
+              </div>
+            )}
+            <div className={styles.paginasi}>
+              <button className={styles["btn-paginasi"]} onClick={handlePrev}>
+                Prev
+              </button>
+              <button className={styles["btn-paginasi"]} onClick={handleNext}>
+                Next
+              </button>
             </div>
             <p className={styles["info-price-cutted"]}>
               &#42;the price has been cutted by discount appears
             </p>
+            {role === "admin" ? (
+              <button
+                className={styles["add-product"]}
+                onClick={handleAddProduct}
+              >
+                Add new product
+              </button>
+            ) : null}
           </section>
         </main>
         <Footer />
@@ -165,4 +326,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default withSearchParams(Product);

@@ -313,11 +313,17 @@
   margin-bottom: 0px;
 }
 .category:active {
+  display: block;
   font-weight: 700;
   color: #6a4029;
   border-bottom: 3px solid #6a4029;
   text-align: center;
   padding-bottom: 12px;
+}
+.dropdown {
+  margin-top: 30px;
+  font-family: "Poppins";
+  border-radius: 10px;
 }
 .product-lists {
   padding-top: 20px;
@@ -360,12 +366,55 @@
   /* margin-top: 10px; */
 }
 
+.btn-paginasi {
+  width: 80px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
+  margin-top: 30px;
+  background-color: #9f9f9f;
+}
+
+.paginasi {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .info-price-cutted {
   font-family: "Poppins";
   font-weight: 400;
   font-size: 17px;
   color: #6a4029;
   margin-top: 20px;
+}
+.loading{
+  width: 100%;
+  padding-top: 40%;
+  padding-bottom: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-product {
+  font-family: "Poppins";
+  font-style: Bold;
+  font-size: 20px;
+  color: #6a4029;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+.textAddEdit {
+  font-family: "Poppins";
+  font-style: Bold;
+  font-size: 16px;
+  color: #6a4029;
 }
 
 @media (max-width: 768px) {

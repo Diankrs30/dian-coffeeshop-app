@@ -5,7 +5,8 @@ import {
   getDeliveryMethod,
   createProduct,
   editProduct,
-  getCategory
+  getCategory,
+  deleteProduct,
 } from "../../utils/api";
 import actionStrings from "./actionStrings";
 
@@ -42,21 +43,28 @@ const getCategoryAction = () => {
     type: actionStrings.getCategory,
     payload: getCategory(),
   };
-}
+};
 
 const createProductAction = (body) => {
   return {
     type: actionStrings.createProduct,
     payload: createProduct(body),
-  }
-}
+  };
+};
 
-const editProductAction = (body) => {
+const editProductAction = (body, id) => {
   return {
     type: actionStrings.editProduct,
-    payload: editProduct(body),
-  }
-}
+    payload: editProduct(body, id),
+  };
+};
+
+const deleteProductAction = (id) => {
+  return {
+    type: actionStrings.deleteProduct,
+    payload: deleteProduct(id),
+  };
+};
 
 const searchAction = (param) => {
   return {
@@ -74,6 +82,7 @@ const productAction = {
   editProductAction,
   searchAction,
   getCategoryAction,
+  deleteProductAction,
 };
 
 export default productAction;

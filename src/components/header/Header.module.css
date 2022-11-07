@@ -115,11 +115,12 @@
   color: #ffffff;
 }
 .img-profile {
-  width: 34px;
-  height: 34px;
+  width: 50px;
+  height: 50px;
   border: 3px solid #6a4029;
   border-radius: 50%;
   filter: drop-shadow(0px 6px 20px rgba(106, 64, 41, 0.8));
+  background-color: #efeeee;
 }
 .login {
   width: 40%;

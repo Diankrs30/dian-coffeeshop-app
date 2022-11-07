@@ -27,14 +27,7 @@ function AddProduct({ navigate }) {
 
   const [imgPrev, setImgPrev] = useState(null);
   const target = useRef(null);
-  // const [product_name, setProduct_name] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [product_description, setProduct_description] = useState("");
-  // const [image, setImage] = useState("");
-  // const [start_delivery, setDelivery_address] = useState("");
-  // const [end_delivery, setEnd_delivery] = useState("");
-  // const [stock_product, setStock_product] = useState("");
-
+  
   const handleProductName = (e) => {
     setBody({ ...body, product_name: e.target.value });
   };
@@ -145,13 +138,7 @@ function AddProduct({ navigate }) {
   };
 
   const handleCancel = async () => {
-    // setProduct_name("");
-    // setPrice("");
-    // setProduct_description("");
-    // setImage("");
-    // setDelivery_address("");
-    // setEnd_delivery("");
-    // setStock_product("");
+    navigate("/product");
   };
 
   useEffect(() => {
@@ -175,7 +162,6 @@ function AddProduct({ navigate }) {
                     className={styles["img-prod"]}
                     src={imgPrev !== null ? imgPrev : icon}
                     alt=""
-                    // value={image}
                   ></img>
                 </div>
                 <button className={`${styles.btn} ${styles["take-image"]}`}>
@@ -223,7 +209,7 @@ function AddProduct({ navigate }) {
                 <div className={styles["wrapper-button-cancel"]}>
                   <button
                     className={`${styles["button-cancel"]} ${styles["text-cancel"]}`}
-                    onClick={() => setBody({ ...body, product_name: "" })}
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>

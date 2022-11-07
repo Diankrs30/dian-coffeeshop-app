@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import authAction from "../../redux/action/auth";
 import styles from "./Login.module.css";
 import withNavigate from "../../helpers/withNavigate";
 import { login } from "../../utils/api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import asideImg from "../../assets/img/aside-img.png";
 import coffee from "../../assets/img/coffee-1.png";
@@ -9,10 +13,12 @@ import google from "../../assets/img/google.png";
 import facebook from "../../assets/img/facebook.png";
 import twitter from "../../assets/img/twitter.png";
 import instagram from "../../assets/img/instagram.png";
+import eyeSlash from "../../assets/img/eyeSlash.png";
+import eye from "../../assets/img/eye.png";
 
 function Login({ navigate }) {
+  const dispatch = useDispatch();
   const [isPwdShown, setIsPwdShown] = useState(false);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,14 +27,27 @@ function Login({ navigate }) {
       password: event.target.password.value,
     };
     try {
-      const result = await login(body);
-      console.log(result.data.data);
-      localStorage.setItem("login", JSON.stringify(result.data.data));
-      // alert("success login");
-      navigate("/");
+      // const result = await login(body);
+      const result = await dispatch(authAction.loginAction(body));
+      console.log(result.action.payload.data.data);
+      localStorage.setItem(
+        "login",
+        JSON.stringify(result.action.payload.data.data)
+      );
+      toast.success("Login success", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       console.log(error);
-      alert(error.response.data.status);
+      // alert("success login");
+      toast.error("Email/password is wrong", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
     }
   };
 
@@ -87,22 +106,19 @@ function Login({ navigate }) {
                 <div className={styles["input-div"]}>
                   <label className={styles.label}>Password:</label>
                   <input
-                    className={`${styles["full-width"]} ${styles.input}`}
+                    className={`${styles.input} ${styles["full-width"]}`}
                     type={isPwdShown ? "text" : "password"}
                     name="password"
                     required="true"
                     placeholder="Enter your password"
                   />
-                  <span>show password</span>
-                    <input
-                      className={styles["show-pwd"]}
-                      type="checkbox"
-                      defaultChecked={false}
-                      onChange={() => {
-                        // console.log("triggered");
-                        setIsPwdShown(!isPwdShown)
-                      }}
-                    />
+                  <span>show password  </span>
+                  <img
+                    className={styles["icon-eye"]}
+                    src={isPwdShown ? eye : eyeSlash}
+                    alt=""
+                    onClick={()=>setIsPwdShown(!isPwdShown)}
+                  />
                 </div>
                 <div className={styles["input-div2"]}>
                   <label
@@ -118,6 +134,7 @@ function Login({ navigate }) {
                 >
                   <p className={styles["btn-text1"]}>Login</p>
                 </button>
+                <ToastContainer />
                 <div
                   className={`${styles.button} ${styles.secondary} ${styles.cursor}`}
                 >

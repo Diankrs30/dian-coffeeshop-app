@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import pen from "../../assets/img/pen.png";
 import { toast, ToastContainer } from "react-toastify";
 import Modal from "../../components/modals/modalLogout/Modal";
+import IsLoading from "../../components/isLoading/IsLoading";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,11 +22,16 @@ function Profile({ navigate }) {
   const profile = useSelector((state) => state.getProfile.profile);
   const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(true);
-  const [cancelEdit, setCancelEdit] = useState(false);
   const [imgPrev, setImgPrev] = useState(null);
   const [body, setBody] = useState({});
   const [show, setShow] = useState(false);
-  console.log(body);
+  const isPending = useSelector((state) => state.getProfile.IsLoading);
+
+  const [delivery_address, setDelivery_address] = useState("");
+  const [display_name, setDisplay_name] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [date_of_birth, setDate_of_birth] = useState("");
 
   const handleAddress = (e) => {
     setBody({ ...body, delivery_address: e.target.value });
@@ -74,22 +80,7 @@ function Profile({ navigate }) {
     setImgPrev(URL.createObjectURL(e.target.files[0]));
   };
 
-  // const getDataProfile = async () => {
-  //   try {
-  //     const result = await getProfile();
-  //     setProfile(result.data.data[0]);
-  //     console.log(result);
-  //   } catch (error) {
-  //     // console.log(error);
-  //     // console.log(error.response.data.statusCode);
-  //     if (error.response.data.statusCode === 403) {
-  //       navigate("/login");
-  //     }
-  //   }
-  // };
-
   const handleRemoveImg = async () => {
-    // console.log("test remove");
     if (body.image) {
       setBody({});
     }
@@ -118,10 +109,12 @@ function Profile({ navigate }) {
     }
   };
 
-  const handleCancel = async () => {
-    if (body) {
-      setBody({});
-    }
+  const handleCancel = () => {
+    setDelivery_address("");
+    setDisplay_name("");
+    setFirst_name("");
+    setLast_name("");
+    setDate_of_birth("");
     setIsEdit(true);
   };
 
@@ -146,11 +139,17 @@ function Profile({ navigate }) {
             className={`${styles["detail-profile"]} ${styles["full-width"]}`}
           >
             <section className={styles.profile}>
-              <img
-                className={styles.photo}
-                src={imgPrev !== null ? imgPrev : profile.image}
-                alt="photos-profile"
-              />
+              {isPending ? (
+                <div className={styles.loading}>
+                  <IsLoading />
+                </div>
+              ) : (
+                <img
+                  className={styles.photo}
+                  src={imgPrev !== null ? imgPrev : profile.image}
+                  alt="photos-profile"
+                />
+              )}
               <p className={styles.name}>{profile.display_name}</p>
               <p className={styles.mail}>{profile.email}</p>
               <button
@@ -247,6 +246,7 @@ function Profile({ navigate }) {
                     type="text"
                     placeholder={profile.delivery_address}
                     disabled={isEdit}
+                    value={delivery_address}
                   />
                 ) : (
                   <input
@@ -268,6 +268,7 @@ function Profile({ navigate }) {
                       type="text"
                       placeholder={profile.display_name}
                       disabled={isEdit}
+                      value={display_name}
                     />
                   ) : (
                     <input
@@ -300,6 +301,7 @@ function Profile({ navigate }) {
                     type="text"
                     placeholder={profile.first_name}
                     disabled={isEdit}
+                    value={first_name}
                   />
                 ) : (
                   <input
@@ -317,6 +319,7 @@ function Profile({ navigate }) {
                     type="text"
                     placeholder={profile.last_name}
                     disabled={isEdit}
+                    value={last_name}
                   />
                 ) : (
                   <input
@@ -334,7 +337,7 @@ function Profile({ navigate }) {
                       // onChange={handleGender}
                       type="radio"
                       value="male"
-                      defaultChecked={profile.gender === "male" ? true : false}
+                      checked={profile.gender === "male" ? true : false}
                       name="gender"
                     />
                   ) : (
@@ -355,7 +358,7 @@ function Profile({ navigate }) {
                       // onChange={handleGender}
                       type="radio"
                       value="female"
-                      defaultChecked={profile.gender === "female" ? true : false}
+                      checked={profile.gender === "female" ? true : false}
                       name="gender"
                     />
                   ) : (

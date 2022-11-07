@@ -22,6 +22,7 @@ const actionStrings = {
   createPromo: "POST_PROMO",
   editPromo: "PATCH_PROMO",  
   deleteHistory: "DELETE_HISTORY",
+  deleteProduct: "DELETE_PRODUCT",
   pending: `_${ActionType.Pending}`,
   fulfilled: `_${ActionType.Fulfilled}`,
   rejected: `_${ActionType.Rejected}`,

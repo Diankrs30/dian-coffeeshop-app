@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
-// import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import withNavigate from "../../helpers/withNavigate";
 
 import coffee from "../../assets/img/coffee-1.png";
-import search from "../../assets/img/search.png";
+import imgSearch from "../../assets/img/search.png";
 import imgMsg from "../../assets/img/img-msg.png";
 import burgerImg from "../../assets/img/burger.png";
-import imgProfile from "../../assets/img/img-profile.png";
+// import imgProfile from "../../assets/img/img-profile.png";
 
 function Header({ navigate }) {
   const [isLogin, setIsLogin] = useState(false);
   const [isBurger, setIsBurger] = useState(false);
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const profile = useSelector((state) => state.getProfile.profile);
+  const [imgPrev, setImgPrev] = useState(null);
+  const setValue = (event) => {
+    setSearch(event.target.value);
+  };
+  const getSearch = () => {
+    return navigate(
+      `/product?search=${search}&category=&sort=&order=asc&page=1&limit=12`
+    );
+  };
+
+  // const login = JSON.parse(localStorage.getItem("login"));
+
   // console.log(open);
   // const [searchParams, setSearchParams] = useState({
   //   product_name: "",
   //   page: 1,
   //   limit: 12,
   // });
-  // const onSearchHandler = (search) => {
 
-  // }
   // useEffect(() => {
   //   setSearchParams();
   // }, []);
-
+  console.log(search);
   useEffect(() => {
     const login = JSON.parse(localStorage.getItem("login"));
     if (login) {
@@ -35,8 +47,7 @@ function Header({ navigate }) {
     }
   }, []);
 
-  // navigate
-  // const navigate = useNavigate();
+  
   const onClickHandler = (to) => {
     navigate(to);
   };
@@ -74,15 +85,18 @@ function Header({ navigate }) {
           {isLogin ? (
             <aside className={styles["other-content"]}>
               <div className={styles.search}>
-                <img
-                  className={`${styles.cursor} ${styles["icon-search"]}`}
-                  src={search}
-                  alt="search"
-                />
+                <div onClick={getSearch}>
+                  <img
+                    className={`${styles.cursor} ${styles["icon-search"]}`}
+                    src={imgSearch}
+                    alt="search"
+                  />
+                </div>
                 <input
                   className={styles.input}
                   type="text"
                   placeholder="Search"
+                  onChange={(e) => setValue(e)}
                 ></input>
               </div>
               <div className={styles.cursor}>
@@ -94,8 +108,8 @@ function Header({ navigate }) {
               <div onClick={() => onClickHandler("/profile")}>
                 <img
                   className={`${styles["img-profile"]} ${styles.cursor}`}
-                  src={imgProfile}
-                  alt="profile"
+                  src={imgPrev !== null ? imgPrev : profile.image}
+                  alt=""
                 />
               </div>
             </aside>
@@ -156,15 +170,18 @@ function Header({ navigate }) {
           {isLogin ? (
             <div className={styles.contentBurger}>
               <div className={styles.search}>
-                <img
-                  className={`${styles.cursor} ${styles["icon-search"]}`}
-                  src={search}
-                  alt="search"
-                />
+                <div onClick={getSearch}>
+                  <img
+                    className={`${styles.cursor} ${styles["icon-search"]}`}
+                    src={imgSearch}
+                    alt="search"
+                  />
+                </div>
                 <input
                   className={styles.input}
                   type="text"
                   placeholder="Search"
+                  onChange={(e) => setValue(e)}
                 ></input>
               </div>
               <div className={styles.cursor}>
@@ -176,8 +193,8 @@ function Header({ navigate }) {
               <div onClick={() => onClickHandler("/profile")}>
                 <img
                   className={`${styles["img-profile"]} ${styles.cursor}`}
-                  src={imgProfile}
-                  alt="profile"
+                  src={imgPrev !== null ? imgPrev : profile.image}
+                  alt=""
                 />
               </div>
             </div>

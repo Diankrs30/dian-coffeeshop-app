@@ -175,8 +175,8 @@
   font-weight: 400;
 }
 .textDetailDeliv2 {
+  outline: none;
   border-top: 1px solid #dddfe4;
-  border-bottom: 1px solid #dddfe4;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-bottom: 5px;

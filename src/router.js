@@ -14,6 +14,7 @@ import AddProduct from "./pages/addProduct/AddProduct";
 import AddPromo from "./pages/addPromo/Addpromo";
 import EditProduct from "./pages/editProduct/EditProduct.js";
 import Cart from "./pages/cart/Cart";
+import EditPromo from "./pages/editPromo/EditPromo";
 
 import PrivateElement from "./components/privateElement/PrivateElement";
 
@@ -41,9 +42,38 @@ const router = createBrowserRouter([
     ),
   },
   { path: "/detail-transaction", element: <DetailTransaction /> },
-  { path: "/add-product", element: <AddProduct /> },
-  { path: "/edit-product", element: <EditProduct /> },
-  { path: "/add-promo", element: <AddPromo /> },
+  {
+    path: "/add-product",
+    element: (
+      <PrivateElement allowedRoles={["admin"]}>
+        <AddProduct />
+      </PrivateElement>
+    ),
+  },
+  {
+    path: "/edit-product",
+    element: (
+      <PrivateElement allowedRoles={["admin"]}>
+        <EditProduct />
+      </PrivateElement>
+    ),
+  },
+  {
+    path: "/add-promo",
+    element: (
+      <PrivateElement allowedRoles={["admin"]}>
+        <AddPromo />
+      </PrivateElement>
+    ),
+  },
+  {
+    path: "/edit-promo",
+    element: (
+      <PrivateElement allowedRoles={["admin"]}>
+        <EditPromo />
+      </PrivateElement>
+    ),
+  },
   { path: "/cart", element: <Cart /> },
 ]);
 

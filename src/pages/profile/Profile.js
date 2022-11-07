@@ -1,20 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from "../../redux/action/user";
+
+import { editProfile } from "../../utils/api";
 import styles from "./Profile.module.css";
+import withNavigate from "../../helpers/withNavigate";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
-import { editProfile, getProfile } from "../../utils/api";
-import withNavigate from "../../helpers/withNavigate";
 import dayjs from "dayjs";
-import { logout } from "../../utils/api";
 
 import pen from "../../assets/img/pen.png";
+import { toast, ToastContainer } from "react-toastify";
+import Modal from "../../components/modals/modalLogout/Modal";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile({ navigate }) {
+  const dispatch = useDispatch();
   const target = useRef(null);
-  const [profile, setProfile] = useState({});
+  const profile = useSelector((state) => state.getProfile.profile);
+  const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(true);
-  const [imgPrev, setImgPrev] = useState();
+  const [cancelEdit, setCancelEdit] = useState(false);
+  const [imgPrev, setImgPrev] = useState(null);
   const [body, setBody] = useState({});
+  const [show, setShow] = useState(false);
   console.log(body);
 
   const handleAddress = (e) => {
@@ -36,25 +46,54 @@ function Profile({ navigate }) {
     setBody({ ...body, gender: e.target.value });
   };
   const handleImage = (e) => {
-    console.log(e);
+    // console.log(e);
+    console.log(e.target.files[0]);
+    const photo = e.target.files[0];
+    const defaultSize = 2 * 1024 * 1024;
+
+    if (
+      photo.type !== "image/jpeg" &&
+      photo.type !== "image/jpg" &&
+      photo.type !== "image/png"
+    ) {
+      return toast.error(
+        "Extension file wrong! Only .jpeg, .jpg, .png are allowed.",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        }
+      );
+    }
+    if (photo.size > defaultSize) {
+      return toast.error("File to large. Max. file size 2 Mb", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    }
     setBody({ ...body, image: e.target.files[0] });
     setImgPrev(URL.createObjectURL(e.target.files[0]));
   };
 
-  
+  // const getDataProfile = async () => {
+  //   try {
+  //     const result = await getProfile();
+  //     setProfile(result.data.data[0]);
+  //     console.log(result);
+  //   } catch (error) {
+  //     // console.log(error);
+  //     // console.log(error.response.data.statusCode);
+  //     if (error.response.data.statusCode === 403) {
+  //       navigate("/login");
+  //     }
+  //   }
+  // };
 
-  const getDataProfile = async () => {
-    try {
-      const result = await getProfile();
-      setProfile(result.data.data[0]);
-      console.log(result);
-    } catch (error) {
-      // console.log(error);
-      // console.log(error.response.data.statusCode);
-      if (error.response.data.statusCode === 403) {
-        navigate("/login");
-      }
+  const handleRemoveImg = async () => {
+    // console.log("test remove");
+    if (body.image) {
+      setBody({});
     }
+    setImgPrev(null);
   };
 
   const handleSaveChange = async () => {
@@ -69,25 +108,30 @@ function Profile({ navigate }) {
       await editProfile(formData);
       setBody({});
       setIsEdit(true);
-      await getDataProfile();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleLogout = async () => {
-    try {
-      console.log('apaaaaa');
-      const result = await logout();
-      localStorage.removeItem("login");
-      navigate('/')
-      console.log(result);
+      await dispatch(userActions.getProfileAction());
+      toast.success("Edit profile success", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleCancel = async () => {
+    if (body) {
+      setBody({});
+    }
+    setIsEdit(true);
+  };
+
+  const handleLogout = async () => {
+    setOpen(!open);
+  };
+
   useEffect(() => {
-    getDataProfile();
+    // getDataProfile();
+    dispatch(userActions.getProfileAction());
   }, []);
 
   return (
@@ -104,7 +148,7 @@ function Profile({ navigate }) {
             <section className={styles.profile}>
               <img
                 className={styles.photo}
-                src={imgPrev ?? "http://localhost:8070" + profile.image}
+                src={imgPrev !== null ? imgPrev : profile.image}
                 alt="photos-profile"
               />
               <p className={styles.name}>{profile.display_name}</p>
@@ -124,8 +168,10 @@ function Profile({ navigate }) {
                 onChange={(e) => handleImage(e)}
                 style={{ display: "none" }}
               />
+              <ToastContainer />
               <button
                 className={`${styles.btn} ${styles.remove} ${styles.cursor}`}
+                onClick={handleRemoveImg}
               >
                 Remove photo
               </button>
@@ -144,8 +190,10 @@ function Profile({ navigate }) {
                 >
                   Save Change
                 </button>
+                <ToastContainer />
                 <button
                   className={`${styles.btn2} ${styles.cancel} ${styles.cursor}`}
+                  onClick={handleCancel}
                 >
                   Cancel
                 </button>
@@ -155,6 +203,7 @@ function Profile({ navigate }) {
                 >
                   Log out
                 </button>
+                <Modal show={show} />
               </div>
             </section>
             <form className={styles["detail-user"]}>
@@ -192,13 +241,20 @@ function Profile({ navigate }) {
               </div>
               <div className={`${styles.address} ${styles.border}`}>
                 <label className={styles.label}>Delivery address :</label>
-                <input
-                  className={styles["input-text"]}
-                  type="text"
-                  onChange={handleAddress}
-                  disabled={isEdit}
-                  placeholder={profile.delivery_address}
-                />
+                {isEdit ? (
+                  <input
+                    className={styles["input-text"]}
+                    type="text"
+                    placeholder={profile.delivery_address}
+                    disabled={isEdit}
+                  />
+                ) : (
+                  <input
+                    className={styles["input-text"]}
+                    type="text"
+                    onChange={handleAddress}
+                  />
+                )}
               </div>
               <div className={styles.detail}>
                 <p className={styles["text-header"]}>Details</p>
@@ -206,72 +262,112 @@ function Profile({ navigate }) {
               <div className={styles["detail-profile2"]}>
                 <div className={`${styles.display} ${styles.border}`}>
                   <label className={styles.label}>Display name :</label>
-                  <input
-                    className={styles["input-text"]}
-                    type="text"
-                    onChange={handleDisplayName}
-                    disabled={isEdit}
-                    placeholder={profile.display_name}
-                  />
+                  {isEdit ? (
+                    <input
+                      className={styles["input-text"]}
+                      type="text"
+                      placeholder={profile.display_name}
+                      disabled={isEdit}
+                    />
+                  ) : (
+                    <input
+                      className={styles["input-text"]}
+                      type="text"
+                      onChange={handleDisplayName}
+                    />
+                  )}
                 </div>
                 <div className={`${styles.bod} ${styles.border}`}>
                   <label className={styles.label}>Date of Birth :</label>
                   {isEdit ? (
+                    <div className={styles["input-text"]}>
+                      {dayjs(profile.date_of_birth).format("DD/MM/YYYY")}
+                    </div>
+                  ) : (
                     <input
                       className={styles["input-text"]}
                       onChange={handleDOB}
                       type="date"
-                      disabled={isEdit}
                     />
-                  ) : (
-                    <div className={styles["input-text"]}>
-                      {dayjs(profile.date_of_birth).format("DD/MM/YYYY")}
-                    </div>
                   )}
                 </div>
               </div>
               <div className={`${styles["first-name"]} ${styles.border}`}>
                 <label className={styles.label}>First name :</label>
-                <input
-                  className={styles["input-text"]}
-                  onChange={handleFirstName}
-                  type="text"
-                  disabled={isEdit}
-                  placeholder={profile.first_name}
-                />
+                {isEdit ? (
+                  <input
+                    className={styles["input-text"]}
+                    type="text"
+                    placeholder={profile.first_name}
+                    disabled={isEdit}
+                  />
+                ) : (
+                  <input
+                    className={styles["input-text"]}
+                    onChange={handleFirstName}
+                    type="text"
+                  />
+                )}
               </div>
               <div className={`${styles["last-name"]} ${styles.border}`}>
                 <label className={styles.label}>Last name :</label>
-                <input
-                  className={styles["input-text"]}
-                  onChange={handleLastName}
-                  type="text"
-                  disabled={isEdit}
-                  placeholder={profile.last_name}
-                />
+                {isEdit ? (
+                  <input
+                    className={styles["input-text"]}
+                    type="text"
+                    placeholder={profile.last_name}
+                    disabled={isEdit}
+                  />
+                ) : (
+                  <input
+                    className={styles["input-text"]}
+                    onChange={handleLastName}
+                    type="text"
+                  />
+                )}
               </div>
               <div className={styles.gender}>
                 <div className={styles.male}>
-                  <input
-                    className={`${styles.circle} ${styles.cursor}`}
-                    onChange={handleGender}
-                    type="radio"
-                    value="male"
-                    defaultChecked={
-                      profile.gender === "male" ? "true" : "false"
-                    }
-                    name="gender"
-                  />
+                  {isEdit ? (
+                    <input
+                      className={`${styles.circle} ${styles.cursor}`}
+                      // onChange={handleGender}
+                      type="radio"
+                      value="male"
+                      defaultChecked={profile.gender === "male" ? true : false}
+                      name="gender"
+                    />
+                  ) : (
+                    <input
+                      className={`${styles.circle} ${styles.cursor}`}
+                      onChange={handleGender}
+                      type="radio"
+                      value="male"
+                      name="gender"
+                    />
+                  )}
                   <p className={styles["text-gender"]}>Male</p>
                 </div>
                 <div className={styles.female}>
-                  <input
-                    className={`${styles.circle} ${styles.cursor}`}
-                    onChange={handleGender}
-                    type="radio"
-                    value="female"
-                    name="gender"
-                  />
+                  {isEdit ? (
+                    <input
+                      className={`${styles.circle} ${styles.cursor}`}
+                      // onChange={handleGender}
+                      type="radio"
+                      value="female"
+                      defaultChecked={profile.gender === "female" ? true : false}
+                      name="gender"
+                    />
+                  ) : (
+                    <input
+                      className={`${styles.circle} ${styles.cursor}`}
+                      onChange={handleGender}
+                      type="radio"
+                      value="female"
+                      name="gender"
+                    />
+                  )}
+
                   <p className={styles["text-gender"]}>Female</p>
                 </div>
               </div>
@@ -282,11 +378,14 @@ function Profile({ navigate }) {
               </div>
               <button
                 className={`${styles.btn2} ${styles.save} ${styles.cursor}`}
+                onClick={handleSaveChange}
               >
                 Save Change
               </button>
+              <ToastContainer />
               <button
                 className={`${styles.btn2} ${styles.cancel} ${styles.cursor}`}
+                onClick={handleCancel}
               >
                 Cancel
               </button>
@@ -301,6 +400,12 @@ function Profile({ navigate }) {
         </main>
         <Footer />
       </div>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Log out"
+        body="Are you want to log out?"
+      />
     </>
   );
 }

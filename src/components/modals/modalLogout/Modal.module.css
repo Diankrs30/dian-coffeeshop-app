@@ -1,0 +1,59 @@
+.modal {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 600px;
+  background-color: #ffffff;
+  text-align: center;
+  border-radius: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 10px;
+}
+
+.modal-title {
+  margin: 0px;
+  font-size: 35px;
+  font-family: "Poppins";
+}
+
+.modal-body {
+  padding: 0px;
+  font-size: 30px;
+  font-family: "Poppins";
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.button {
+    width: 130px;
+    height: 60px;
+    font-family: 'Poppins';
+    font-size: 25px;
+    font-weight: 700;
+    border-radius: 20px;
+    border: 1px solid #6A4029;
+    color: #6A4029;
+}
+
+.button:active {
+    background-color: #6A4029;
+    color: #ffffff;
+}

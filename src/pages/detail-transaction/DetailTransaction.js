@@ -246,13 +246,13 @@ function DetailTransaction() {
                       onChange={handlePaymentMethod}
                       className={styles.radioBtn}
                       type="radio"
-                      value="card"
+                      value="cash"
                       name="payment-method"
                     />
                     <div className={`${styles.bgcard} ${styles.flex}`}>
                       <img src={Card} alt=""></img>
                     </div>
-                    <span className={styles.textPayMeth}>Card</span>
+                    <span className={styles.textPayMeth}>Cash</span>
                   </div>
                   <div className={`${styles.bankAccount} ${styles.flex}`}>
                     <input

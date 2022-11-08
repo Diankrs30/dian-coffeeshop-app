@@ -94,7 +94,27 @@
 .full-width {
   width: 100%;
 }
+.pwd {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  background: #E8F0FE;
+  border: 1px solid #4f5665;
+  border-radius: 20px;
+  margin-top: 13px;
+  padding: 20px;
+  margin-bottom: 13px;
 
+  font-weight: 400;
+  font-size: 20px;
+  color: #9f9f9f;
+}
+.inputPwd {
+  width: 100%;
+  margin-right: 30px;
+  outline: none;
+  background-color: transparent;
+}
 .input-div {
   width: 65%;
   margin: 10px;
@@ -123,6 +143,7 @@
 .icon-eye {
   width: 20px;
   height: 20px;
+  
 }
 .input-div2 {
   width: 65%;

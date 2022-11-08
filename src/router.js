@@ -22,7 +22,14 @@ const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <Error /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  { path: "/profile", element: <Profile /> },
+  {
+    path: "/profile",
+    element: (
+      <PrivateElement allowedRoles={["user", "admin"]}>
+        <Profile />
+      </PrivateElement>
+    ),
+  },
   {
     path: "/product",
     element: (
@@ -32,7 +39,14 @@ const router = createBrowserRouter([
     ),
   },
   { path: "/forgot-password", element: <ForgotPwd /> },
-  { path: "/detail-product/:id", element: <ProductDetail /> },
+  {
+    path: "/detail-product/:id",
+    element: (
+      <PrivateElement allowedRoles={["user", "admin"]}>
+        <ProductDetail />
+      </PrivateElement>
+    ),
+  },
   {
     path: "/history",
     element: (
@@ -41,7 +55,14 @@ const router = createBrowserRouter([
       </PrivateElement>
     ),
   },
-  { path: "/detail-transaction", element: <DetailTransaction /> },
+  {
+    path: "/detail-transaction",
+    element: (
+      <PrivateElement allowedRoles={["user", "admin"]}>
+        <DetailTransaction />
+      </PrivateElement>
+    ),
+  },
   {
     path: "/add-product",
     element: (
@@ -74,7 +95,14 @@ const router = createBrowserRouter([
       </PrivateElement>
     ),
   },
-  { path: "/cart", element: <Cart /> },
+  {
+    path: "/cart",
+    element: (
+      <PrivateElement allowedRoles={["admin", "user"]}>
+        <Cart />
+      </PrivateElement>
+    ),
+  },
 ]);
 
 export default router;

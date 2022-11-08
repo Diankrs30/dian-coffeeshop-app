@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import promoAction from "../../redux/action/promo";
 
-import styles from "./AddPromo.module.css";
+import styles from "./EditPromo.module.css";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer2/Footer2";
 import withNavigate from "../../helpers/withNavigate";
@@ -11,7 +11,22 @@ import { toast, ToastContainer } from "react-toastify";
 
 import icon from "../../assets/img/photo-camera-black-tool 4.png";
 
-function AddProduct() {
+function EditPromo() {
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.getDetailProduct.detail);
+  const [body, setBody] = useState({
+    image: null,
+    promo_description: null,
+    discount: null,
+    start_discount: null,
+    end_discount: null,
+    code_promo: null,
+    product_id: null,
+  });
+  console.log(body);
+
+  const [imgPrev, setImgPrev] = useState(null);
+  const target = useRef(null);
   return (
     <>
       <div className={styles["body-container"]}>
@@ -19,13 +34,13 @@ function AddProduct() {
         <main className={styles["main-container"]}>
           <section>
             <span className={styles["text-title"]}>Favorite &#38; Promo </span>
-            <span className={styles["text-title2"]}>&#62; Add new promo</span>
+            <span className={styles["text-title2"]}>&#62; Edit promo</span>
           </section>
           <section className={styles["wrapper-form-product"]}>
             <section className={`${styles.flex} ${styles.content}`}>
               <section className={`${styles["wrapper-left"]} ${styles.flex}`}>
                 <div className={`${styles["img-prod"]} ${styles.flex}`}>
-                  <img clasName={styles.icon} src={icon} alt=""></img>
+                  <img className={styles.icon} src={icon} alt=""></img>
                 </div>
                 <button className={`${styles.btn} ${styles["take-image"]}`}>
                   Take a pitcure
@@ -49,11 +64,11 @@ function AddProduct() {
                     </label>
                     <input
                       className={styles["input-div"]}
-                      placeholder="Select start hour"
+                      placeholder="Select start date"
                     ></input>
                     <input
                       className={styles["input-div"]}
-                      placeholder="Select end hour"
+                      placeholder="Select end date"
                     ></input>
                   </div>
                   <div className={styles["wrapper-input-code"]}>
@@ -88,7 +103,7 @@ function AddProduct() {
                     <input
                       className={styles["input-div-right"]}
                       type="text"
-                      placeholder="Description  your product min. 150 characters"
+                      placeholder="Description  your promo min. 150 characters"
                     />
                   </div>
                   <div>
@@ -107,7 +122,7 @@ function AddProduct() {
                     <button
                       className={`${styles["button-save"]} ${styles["text-save"]}`}
                     >
-                      Save Product
+                      Save Promo
                     </button>
                     <button
                       className={`${styles["button-cancel"]} ${styles["text-cancel"]}`}
@@ -132,11 +147,11 @@ function AddProduct() {
                 <label className={styles["label-text"]}>Expired date:</label>
                 <input
                   className={styles["input-div"]}
-                  placeholder="Select start hour"
+                  placeholder="Select start date"
                 ></input>
                 <input
                   className={styles["input-div"]}
-                  placeholder="Select end hour"
+                  placeholder="Select end date"
                 ></input>
               </div>
               <div className={styles["wrapper-input-code"]}>
@@ -169,4 +184,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default EditPromo;

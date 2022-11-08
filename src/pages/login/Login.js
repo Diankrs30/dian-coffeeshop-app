@@ -15,10 +15,12 @@ import twitter from "../../assets/img/twitter.png";
 import instagram from "../../assets/img/instagram.png";
 import eyeSlash from "../../assets/img/eyeSlash.png";
 import eye from "../../assets/img/eye.png";
+import Loading from "../../components/loading/Loading";
 
 function Login({ navigate }) {
   const dispatch = useDispatch();
   const [isPwdShown, setIsPwdShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -105,20 +107,21 @@ function Login({ navigate }) {
                 </div>
                 <div className={styles["input-div"]}>
                   <label className={styles.label}>Password:</label>
-                  <input
-                    className={`${styles.input} ${styles["full-width"]}`}
-                    type={isPwdShown ? "text" : "password"}
-                    name="password"
-                    required="true"
-                    placeholder="Enter your password"
-                  />
-                  <span>show password  </span>
-                  <img
-                    className={styles["icon-eye"]}
-                    src={isPwdShown ? eye : eyeSlash}
-                    alt=""
-                    onClick={()=>setIsPwdShown(!isPwdShown)}
-                  />
+                  <div className={`${styles.pwd} ${styles["full-width"]}`}>
+                    <input
+                      className={styles.inputPwd}
+                      type={isPwdShown ? "text" : "password"}
+                      name="password"
+                      required="true"
+                      placeholder="Enter your password"
+                    />
+                    <img
+                      className={styles["icon-eye"]}
+                      src={isPwdShown ? eye : eyeSlash}
+                      alt=""
+                      onClick={() => setIsPwdShown(!isPwdShown)}
+                    />
+                  </div>
                 </div>
                 <div className={styles["input-div2"]}>
                   <label
@@ -132,7 +135,13 @@ function Login({ navigate }) {
                   className={`${styles.button} ${styles.primary} ${styles.cursor}`}
                   type="submit"
                 >
-                  <p className={styles["btn-text1"]}>Login</p>
+                  {isLoading ? (
+                    <div>
+                      <Loading />
+                    </div>
+                  ) : (
+                    <p className={styles["btn-text1"]}>Login</p>
+                  )}
                 </button>
                 <ToastContainer />
                 <div

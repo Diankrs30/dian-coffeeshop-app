@@ -6,6 +6,7 @@ import withNavigate from "../../helpers/withNavigate";
 import { signup } from "../../utils/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../components/loading/Loading";
 
 import asideImg from "../../assets/img/aside-img.png";
 import coffee from "../../assets/img/coffee-1.png";
@@ -19,6 +20,7 @@ import eye from "../../assets/img/eye.png";
 class Register extends Component {
   state = {
     isPwdShown: false,
+    isLoading: false,
   };
 
   handleSubmit = async (event) => {
@@ -30,6 +32,19 @@ class Register extends Component {
     };
     // console.log(body);
     try {
+      let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+      if (regex.test(body.email) === false) {
+        return toast.warning("Format email wrong", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+      }
+      if (body.email > 0 && body.phone_number > 0) {
+        return toast.warning("Email/phone number has been registered", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+      }
       // const result = await signup(body);
       await this.props.dispatch(authAction.signUpAction(body));
       toast.success("Register success", {
@@ -41,7 +56,6 @@ class Register extends Component {
       }, 3000);
     } catch (error) {
       console.log(error);
-
       toast.error(error.response.data.status, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -50,6 +64,7 @@ class Register extends Component {
   };
 
   render() {
+    const isPending = this.state.isLoading;
     return (
       <>
         <main className={styles.container}>
@@ -101,25 +116,25 @@ class Register extends Component {
                   </div>
                   <div className={styles["input-div"]}>
                     <label className={styles.label}>Password:</label>
-                    <input
-                      className={`${styles["full-width"]} ${styles.input}`}
-                      type={this.state.isPwdShown ? "text" : "password"}
-                      name="password"
-                      required
-                      placeholder="Enter your password"
-                    />
-                    <span>show password  </span>
-                    <img
-                      className={styles["icon-eye"]}
-                      src={this.state.isPwdShown ? eye : eyeSlash}
-                      alt=""
-                      onClick={() => {
-                        const isShown = this.state.isPwdShown
-                        this.setState({isPwdShown: !isShown})
-                        console.log(this.state.isPwdShown);
-                      
-                      }}
-                    />
+                    <div className={`${styles.pwd} ${styles["full-width"]}`}>
+                      <input
+                        className={styles.inputPwd}
+                        type={this.state.isPwdShown ? "text" : "password"}
+                        name="password"
+                        required
+                        placeholder="Enter your password"
+                      />
+                      <img
+                        className={styles["icon-eye"]}
+                        src={this.state.isPwdShown ? eye : eyeSlash}
+                        alt=""
+                        onClick={() => {
+                          const isShown = this.state.isPwdShown;
+                          this.setState({ isPwdShown: !isShown });
+                          console.log(this.state.isPwdShown);
+                        }}
+                      />
+                    </div>
                   </div>
                   <div className={styles["input-div"]}>
                     <label className={styles.label}>Phone Number:</label>
@@ -135,7 +150,13 @@ class Register extends Component {
                     className={`${styles.button} ${styles.primary} ${styles.cursor}`}
                     type="submit"
                   >
-                    <p className={styles["btn-text1"]}>Sign Up</p>
+                    {isPending ? (
+                      <div>
+                        <Loading />
+                      </div>
+                    ) : (
+                      <p className={styles["btn-text1"]}>Sign Up</p>
+                    )}
                   </button>
                   <ToastContainer />
                   <div

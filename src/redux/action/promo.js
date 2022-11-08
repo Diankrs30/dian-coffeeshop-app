@@ -16,8 +16,8 @@ const editPromoAction = (body, id) => {
 };
 
 const promoAction = {
-  createPromo,
-  editPromo,
+  createPromoAction,
+  editPromoAction,
 };
 
 export default promoAction;

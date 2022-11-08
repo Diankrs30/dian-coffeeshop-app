@@ -25,9 +25,23 @@ function ProductDetail({ navigate }) {
   const deliveryMethod = useSelector(
     (state) => state.getDeliveryMethod.deliveryMethod
   );
-  const [idDelete, setIdDelete] = useState([]);
+  // const [idDelete, setIdDelete] = useState([]);
 
   const [counter, setCounter] = useState(1);
+  const [color, setColor] = useState([
+    {
+      id:1,
+      isActive:false
+    },
+    {
+      id:2,
+      isActive:false
+    },
+    {
+      id:3,
+      isActive:false
+    }
+  ]);
   const [body, setBody] = useState({
     product_item: [],
     product_item_view: [],
@@ -35,6 +49,7 @@ function ProductDetail({ navigate }) {
     delivery_methods_name: "",
     set_time: null,
   });
+  const [cart,setCart] = useState([])
 
   const rupiah = (number) => {
     if (number) {
@@ -101,9 +116,64 @@ function ProductDetail({ navigate }) {
       product_item: [product_item],
       product_item_view: [product_item_view],
     });
+  }
+
+  const handleAddCart = () => {
+    setCart(body.product_item_view)
   };
 
-  const handleDeliveryMethod = (item) => {
+  const handleDeliveryMethod = (item,idx) => {
+    let temp = []
+    if(idx===0){
+       temp = [
+        {
+          id:1,
+          isActive:true
+        },
+        {
+          id:2,
+          isActive:false
+        },
+        {
+          id:3,
+          isActive:false
+        }
+      ]
+    }
+    if(idx===1){
+      temp = [
+       {
+         id:1,
+         isActive:false
+       },
+       {
+         id:2,
+         isActive:true
+       },
+       {
+         id:3,
+         isActive:false
+       }
+     ]
+   }
+   if(idx===2){
+    temp = [
+     {
+       id:1,
+       isActive:false
+     },
+     {
+       id:2,
+       isActive:false
+     },
+     {
+       id:3,
+       isActive:true
+     }
+   ]
+ }
+ console.log(temp);
+ setColor(temp)
     setBody({
       ...body,
       delivery_methods_id: item.id,
@@ -133,6 +203,12 @@ function ProductDetail({ navigate }) {
   };
   const handleCheckout = async () => {
     try {
+      if(cart.length===0){
+        return toast.warn("cart masih kosong", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+      }
       await dispatch(cartAction(body));
       onClickHandler("/detail-transaction");
     } catch (error) {
@@ -147,7 +223,7 @@ function ProductDetail({ navigate }) {
   };
   const handleDeleteProduct = async () => {
     await dispatch(productAction.deleteProductAction(id));
-    toast.success("Add new product success", {
+    toast.success("Delete product success", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
@@ -195,7 +271,8 @@ function ProductDetail({ navigate }) {
                       <button
                         className={`${styles.box1} ${styles.cursor}`}
                         key={index}
-                        onClick={() => handleDeliveryMethod(item)}
+                        style={{backgroundColor:color[index].isActive?'#6a4029':'#f4f4f8',color:color[index].isActive?'#ffffff':'#9f9f9f'}}
+                        onClick={() => handleDeliveryMethod(item,index)}
                       >
                         {item.method_delivery}
                       </button>
@@ -300,6 +377,8 @@ function ProductDetail({ navigate }) {
               </div>
               {role === "admin" ? (
                 <div className={styles.button}>
+                  <button className={styles.btn1} onClick={handleAddCart}>Add to Cart</button>
+                  <ToastContainer />
                   <button className={styles.btn1} onClick={handleEditProduct}>
                     Edit product
                   </button>
@@ -310,7 +389,8 @@ function ProductDetail({ navigate }) {
                 </div>
               ) : (
                 <div className={styles.button}>
-                  <button className={styles.btn1}>Add to Cart</button>
+                  <button className={styles.btn1} onClick={handleAddCart}>Add to Cart</button>
+                  <ToastContainer />
                   <button className={styles.btn2}>Ask a Staff</button>
                 </div>
               )}
@@ -369,7 +449,7 @@ function ProductDetail({ navigate }) {
             </div>
             <div className={styles["detail-checkout"]}>
               <div className={styles.product}>
-                {body.product_item_view.map((item, idx) => {
+                {cart.map((item, idx) => {
                   return (
                     <div className={styles.product} key={idx}>
                       <div>

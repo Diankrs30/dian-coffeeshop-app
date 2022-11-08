@@ -6,7 +6,7 @@ import CardProduct from "../../components/cardProduct/CardProduct";
 import CardCoupon from "../../components/cardCoupon/CardCoupon";
 // import { getProduct } from "../../utils/api";
 import withSearchParams from "../../helpers/withSearchParams";
-import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import productAction from "../../redux/action/product";
 import IsLoading from "../../components/isLoading/IsLoading";
@@ -53,26 +53,37 @@ function Product(props) {
       console.log(error);
     }
   };
-const handleSort = async (e) => {
-  try {
-    
-    console.log(e.target.value);
-    const body = {
-      ...param,
-      sort:'created_at',
-      order: e.target.value
-      
+  const handleSort = async (e) => {
+    try {
+      console.log(e.target.value);
+      let body = {};
+      if (e.target.value === "minprice") {
+        body = {
+          ...param,
+          sort: "price",
+          order: "asc",
+        };
+      } else if (e.target.value === "maxprice") {
+        body = {
+          ...param,
+          sort: "price",
+          order: "desc",
+        };
+      } else {
+        body = {
+          ...param,
+          sort: "created_at",
+          order: e.target.value,
+        };
+      }
+
+      setParam(body);
+      props.setSearchParams(body);
+      await dispatch(productAction.getAllProductAction(body));
+    } catch (error) {
+      console.log(error);
     }
-    
-    setParam(body);
-    props.setSearchParams(body);
-    await dispatch(productAction.getAllProductAction(body));
-  } catch (error) {
-    console.log(error);
-  }
-
-
-}
+  };
   const handleNonCofee = async () => {
     try {
       const body = {
@@ -140,34 +151,6 @@ const handleSort = async (e) => {
       console.log(error);
     }
   };
-  const handleOldest = async () => {
-    try {
-      const body = {
-        sort: "created_at",
-        order: "desc",
-      };
-      setParam(body);
-      props.setSearchParams(body);
-
-      await dispatch(productAction.getAllProductAction(body));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleNewest = async () => {
-    try {
-      const body = {
-        sort: "created_at",
-        order: "asc",
-      };
-      setParam(body);
-      props.setSearchParams(body);
-
-      await dispatch(productAction.getAllProductAction(body));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleNext = async () => {
     try {
       if (thisPage < totalPage) {
@@ -182,6 +165,7 @@ const handleSort = async (e) => {
       console.log(error);
     }
   };
+  // console.log(body.meta);
   const handlePrev = async () => {
     try {
       if (thisPage > 1) {
@@ -199,9 +183,11 @@ const handleSort = async (e) => {
   const handleAddProduct = () => {
     navigate("/add-product");
   };
-
   const handleAddPromo = () => {
     navigate("/add-promo");
+  };
+  const handleEditPromo = () => {
+    navigate("/edit-promo");
   };
 
   useEffect(() => {
@@ -245,12 +231,24 @@ const handleSort = async (e) => {
               </ol>
             </div>
             {role === "admin" ? (
-              <button
-                className={styles["add-product"]}
-                onClick={handleAddPromo}
-              >
-                Add new promo
-              </button>
+              <div>
+                <div>
+                  <button
+                    className={styles["add-promo"]}
+                    onClick={handleAddPromo}
+                  >
+                    Add new promo
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className={styles["add-promo"]}
+                    onClick={handleEditPromo}
+                  >
+                    Edit promo
+                  </button>
+                </div>
+              </div>
             ) : null}
           </aside>
           <section className={styles["products-lists"]}>
@@ -284,21 +282,25 @@ const handleSort = async (e) => {
               </div>
             </section>
             <select className={styles.dropdown} onChange={handleSort}>
-              <option value="">Sort by</option>
-              <option value="asc" onClick={handleOldest}>Oldest</option>
-              <option value="desc" onClick={handleNewest}>Newest</option>
+              <option value="">Filter</option>
+              <option value="asc">Oldest</option>
+              <option value="desc">Latest</option>
+              <option value="minprice">Cheapest</option>
+              <option value="maxprice">Priciest</option>
             </select>
-            {isPending ? (
-              <div className={`${styles.loading}`}>
-                <IsLoading />
-              </div>
-            ) : (
-              <div className={styles["product-lists"]}>
-                {allProduct.map((item, index) => {
-                  return <CardProduct key={index} data={item} />;
-                })}
-              </div>
-            )}
+            <div className={styles.card}>
+              {isPending ? (
+                <div className={`${styles.loading}`}>
+                  <IsLoading />
+                </div>
+              ) : (
+                <div className={styles["product-lists"]}>
+                  {allProduct.map((item, index) => {
+                    return <CardProduct key={index} data={item} />;
+                  })}
+                </div>
+              )}
+            </div>
             <div className={styles.paginasi}>
               <button className={styles["btn-paginasi"]} onClick={handlePrev}>
                 Prev

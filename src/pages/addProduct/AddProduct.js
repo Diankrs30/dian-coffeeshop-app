@@ -58,7 +58,7 @@ function AddProduct({ navigate }) {
   };
 
   const handleImage = (e) => {
-    // console.log(e);
+    // console.log(e.target.files[0]);
     console.log(e.target.files[0]);
     const photo = e.target.files[0];
     const defaultSize = 2 * 1024 * 1024;
@@ -85,7 +85,7 @@ function AddProduct({ navigate }) {
     setBody({ ...body, image: e.target.files[0] });
     setImgPrev(URL.createObjectURL(e.target.files[0]));
   };
-  // console.log(body);
+  console.log(body);
   const handleSaveChange = async (e) => {
     e.preventDefault();
     if (

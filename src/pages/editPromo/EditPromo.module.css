@@ -81,6 +81,7 @@
 .choose-image {
   color: #6a4029;
   background-color: #ffba33;
+  margin-bottom: 100px;
 }
 .wrapper-input {
   width: 70%;
@@ -105,10 +106,14 @@
 }
 .input-div {
   height: 83px;
+  padding-right: 20px;
 }
 .input-div-right {
   height: 76px;
   margin-bottom: 35px;
+}
+#time1:before {
+  content: 'Start';
 }
 .label-text-form {
   font-size: 25px;
@@ -121,53 +126,7 @@
 .text-click {
   font-size: 20px;
   color: #9f9f9f;
-}
-.wrapper-circle {
-    gap: 28px;
-    margin-bottom: 54px;
-}
-.circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e7e5e5;
-}
-.wrapper-circle-food, .wrapper-circle-drink {
-  width: 50%;
-  gap:28px;
-}
-.textsizedrink {
-    font-family: 'Poppins';
-    font-size: 30px;
-    font-weight: 700;
-    color: #0b132a;
-}
-.textsizefood {
-    font-family: 'Poppins';
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 23px;
-}
-.wrapper-btn-method {
-    gap: 27px;
-}
-.btn-method-delivery {
-    width: 30%;
-    height: 72px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e7e5e5;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #4F5665;
-}
-.wrapper-delivery {
-    margin-bottom: 80px;
+  margin-bottom: 0px;
 }
 .button-save, .button-cancel {
     width: 100%;
@@ -178,6 +137,7 @@
 }
 .button-save {
     background-color: #6a4029;
+    margin-top: 40px;
 }
 .button-cancel {
     background-color: #e7e5e5;
@@ -206,7 +166,6 @@
   width: 100%;
   height: 75px;
   border-radius: 20px;
-  margin-bottom: 50px;
   padding-left: 25px;
   padding-right: 25px;
   font-family: "Poppins";
@@ -241,11 +200,14 @@
   .take-image, .choose-image  {
     font-size: 18px;
   }
+  .choose-image {
+    margin-bottom: 0px;
+  }
   .label-text {
     margin-top: 20px;
   }
   .input-div {
-    height: 50px;
+    height: 75px;
   }
   .input-div, .input-div-right {
     font-size: 18px;

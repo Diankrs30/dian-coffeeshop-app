@@ -5,8 +5,8 @@ import Footer from "../../components/footer2/Footer2";
 // import { useNavigate } from "react-router-dom";
 import withNavigate from "../../helpers/withNavigate";
 import { getFavorite } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
-import userActions from "../../redux/action/user";
+// import { useDispatch } from "react-redux";
+// import userActions from "../../redux/action/user";
 
 import poeple from "../../assets/img/people.png";
 import loc from "../../assets/img/loc.png";
@@ -24,9 +24,12 @@ import ellipse1751 from "../../assets/img/Ellipse-1751.png";
 import ellipse1752 from "../../assets/img/Ellipse-1752.png";
 import star from "../../assets/img/star.png";
 import icon from "../../assets/img/icon-food.png";
+import hazelnutLatte from "../../assets/img/hazelnut.png";
+import pinkyPromise from "../../assets/img/pinky-promise.png";
+import chickenWings from "../../assets/img/chicken-wings.png";
 
 function Home({ navigate }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [favorite, setFavorite] = useState({});
   const [favorite1, setFavorite1] = useState({});
   const [favorite2, setFavorite2] = useState({});
@@ -199,12 +202,14 @@ function Home({ navigate }) {
               >
                 <img
                   className={styles.menu}
-                  src={favorite2.image !== "" ? favorite2.image : icon}
+                  // src={favorite2.image !== "" ? favorite2.image : icon}
+                  src={hazelnutLatte}
                   alt="menu"
                 />
                 <div className={styles.product}>
                   <p className={styles["prod-name"]}>
-                    {favorite2.product_name}
+                  {/* {favorite1.product_name} */}
+                    Hazelnut Latte
                   </p>
                   <ul className={styles["list-desc"]}>
                     <li className="p-2">Hazelnut Syrup</li>
@@ -217,12 +222,13 @@ function Home({ navigate }) {
                   className={`${styles.price} d-flex flex-column align-items-center`}
                 >
                   <p className={styles["price-text"]}>
-                    {rupiah(favorite2.price)}
+                    {/* {rupiah(favorite2.price)} */}
+                    IDR 25.000
                   </p>
                   <button
-                    onClick={() =>
-                      onClickHandler(`/detail-product/${favorite2.id}`)
-                    }
+                    // onClick={() =>
+                    //   onClickHandler(`/detail-product/${favorite2.id}`)
+                    // }
                     className={styles["button-order"]}
                   >
                     Order Now
@@ -234,11 +240,15 @@ function Home({ navigate }) {
               >
                 <img
                   className={styles.menu}
-                  src={favorite.image !== "" ? favorite.image : icon}
+                  // src={favorite.image !== "" ? favorite.image : icon}
+                  src={pinkyPromise}
                   alt="menu"
                 />
                 <div className={styles.product}>
-                  <p className={styles["prod-name"]}>{favorite.product_name}</p>
+                  <p className={styles["prod-name"]}>
+                    {/* {favorite.product_name} */}
+                    Pinky Promise                    
+                    </p>
                   <ul className={styles["list-desc"]}>
                     <li className="p-2">1 Shot of Coffee</li>
                     <li className="p-2">Vanilla Whipped Cream</li>
@@ -251,12 +261,13 @@ function Home({ navigate }) {
                   className={`${styles.price} d-flex flex-column align-items-center`}
                 >
                   <p className={styles["price-text"]}>
-                    {rupiah(favorite.price)}
+                    {/* {rupiah(favorite.price)} */}
+                    IDR 30.000
                   </p>
                   <button
-                    onClick={() =>
-                      onClickHandler(`/detail-product/${favorite.id}`)
-                    }
+                    // onClick={() =>
+                    //   onClickHandler(`/detail-product/${favorite.id}`)
+                    // }
                     className={styles["button-order"]}
                   >
                     Order Now
@@ -268,12 +279,14 @@ function Home({ navigate }) {
               >
                 <img
                   className={styles.menu}
-                  src={favorite1.image !== "" ? favorite1.image : icon}
+                  // src={favorite1.image !== "" ? favorite1.image : icon}
+                  src={chickenWings}
                   alt="menu"
                 />
                 <div className={styles.product}>
                   <p className={styles["prod-name"]}>
-                    {favorite1.product_name}
+                    {/* {favorite1.product_name} */}
+                    Chicken Wings
                   </p>
                   <ul className={styles["list-desc"]}>
                     <li className="p-2">Wings</li>
@@ -288,12 +301,13 @@ function Home({ navigate }) {
                   className={`${styles.price} d-flex flex-column align-items-center`}
                 >
                   <p className={styles["price-text"]}>
-                    {rupiah(favorite1.price)}
+                    {/* {rupiah(favorite1.price)} */}
+                    IDR 40.000
                   </p>
                   <button
-                    onClick={() =>
-                      onClickHandler(`/detail-product/${favorite1.id}`)
-                    }
+                    // onClick={() =>
+                    //   onClickHandler(`/detail-product/${favorite1.id}`)
+                    // }
                     className={styles["button-order"]}
                   >
                     Order Now

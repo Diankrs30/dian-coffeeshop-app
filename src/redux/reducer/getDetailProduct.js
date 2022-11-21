@@ -17,7 +17,7 @@ const getDetailProductReducer = (prevState = initialState, action) => {
       };
     case actionStrings.getDetailProduct + actionStrings.rejected:
       const errorResponse = action.payload;
-      const errorMessage = errorResponse.data.msg;
+      const errorMessage = errorResponse.response.data.status;
       return {
         ...prevState,
         isLoading: false,

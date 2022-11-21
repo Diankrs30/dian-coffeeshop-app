@@ -23,10 +23,10 @@ function DetailTransaction() {
     payment_method: "",
     status_order: "paid",
   });
-  const [Edit, setEdit] = useState({
-    address: profile.address,
-    phone_number: profile.phone_number,
-  });
+  // const [Edit, setEdit] = useState({
+  //   address: profile.address,
+  //   phone_number: profile.phone_number,
+  // });
   const [isEdit, setIsEdit] = useState(false);
   console.log(body);
 

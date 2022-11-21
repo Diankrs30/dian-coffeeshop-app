@@ -17,7 +17,8 @@ const getProfileReducer = (prevState = initialState, action) => {
       };
     case actionStrings.getProfile + actionStrings.rejected:
       const errorResponse = action.payload;
-      const errorMessage = errorResponse.data.msg;
+      console.log(errorResponse);
+      const errorMessage = errorResponse.response.data.status;
       return {
         ...prevState,
         isError: true,

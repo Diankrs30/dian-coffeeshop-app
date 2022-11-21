@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import productAction from "../../redux/action/product";
 import IsLoading from "../../components/isLoading/IsLoading";
+
 const useQuery = () => {
   const { search } = useLocation();
   return useMemo(() => new URLSearchParams(search), [search]);
@@ -25,7 +26,7 @@ function Product(props) {
   const isPending = useSelector((state) => state.getAllProduct.isLoading);
   const [thisPage, setThisPage] = useState(1);
   const login = JSON.parse(localStorage.getItem("login"));
-  const role = login.role;
+  const role = login ? login.role : "";
   // console.log(totalPage);
   const [param, setParam] = useState({
     search: getQuery.get("search") ?? "",
@@ -220,7 +221,9 @@ function Product(props) {
               <p className={styles["text-apply"]}>Apply Coupon</p>
             </button>
             <div className={styles["text-term"]}>
-              <p>Terms and Condition</p>
+              <p className={styles["text-termCondition"]}>
+                Terms and Condition
+              </p>
             </div>
             <div className={styles.term}>
               <ol className={styles["wrapper-ol"]}>
@@ -230,17 +233,15 @@ function Product(props) {
                 <li>Should make member card to apply coupon</li>
               </ol>
             </div>
-            {role === "admin" ? (
-              <div>
-                <div>
+            <section>
+              {role === "admin" ? (
+                <div className={styles["wrapper-btn-promo"]}>
                   <button
                     className={styles["add-promo"]}
                     onClick={handleAddPromo}
                   >
                     Add new promo
                   </button>
-                </div>
-                <div>
                   <button
                     className={styles["add-promo"]}
                     onClick={handleEditPromo}
@@ -248,8 +249,8 @@ function Product(props) {
                     Edit promo
                   </button>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+            </section>
           </aside>
           <section className={styles["products-lists"]}>
             <section className={`${styles["nav-product"]} ${styles.flex}`}>
@@ -282,7 +283,7 @@ function Product(props) {
               </div>
             </section>
             <select className={styles.dropdown} onChange={handleSort}>
-              <option value="">Filter</option>
+              <option value="">Sort</option>
               <option value="asc">Oldest</option>
               <option value="desc">Latest</option>
               <option value="minprice">Cheapest</option>
@@ -312,7 +313,7 @@ function Product(props) {
             <p className={styles["info-price-cutted"]}>
               &#42;the price has been cutted by discount appears
             </p>
-            {role === "admin" ? (
+            {role === "admin"? (
               <button
                 className={styles["add-product"]}
                 onClick={handleAddProduct}

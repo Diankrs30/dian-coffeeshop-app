@@ -9,8 +9,8 @@ import Footer from "../../components/footer2/Footer2";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
-import icon from "../../assets/img/icon-food.png";
-import { useNavigate } from "react-router-dom";
+// import icon from "../../assets/img/icon-food.png";
+// import { useNavigate } from "react-router-dom";
 
 function EditProduct({ navigate }) {
   const dispatch = useDispatch();

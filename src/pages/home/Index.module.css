@@ -306,6 +306,9 @@
   margin-right: 15px;
   height: 560px;
 }
+.menu-fav:hover {
+  border: 2px solid #6A4029;
+}
 .cardProd {
   justify-content: space-between;
 }

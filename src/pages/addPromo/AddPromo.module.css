@@ -62,8 +62,11 @@
   margin-bottom: 16px;
 }
 .icon {
-  width: 90px;
-  height: 83px;
+  /* width: 90px;
+  height: 83px; */
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 .btn {
   margin-top: 18px;
@@ -101,6 +104,7 @@
   border: 1px solid #9f9f9f;
   border-radius: 20px;
   padding-left: 33px;
+  padding-right: 20px;
   margin-top: 20px;
 }
 .input-div {
@@ -122,76 +126,34 @@
   font-size: 20px;
   color: #9f9f9f;
 }
-.wrapper-circle {
-    gap: 28px;
-    margin-bottom: 54px;
-}
-.circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e7e5e5;
-}
-.wrapper-circle-food, .wrapper-circle-drink {
-  width: 50%;
-  gap:28px;
-}
-.textsizedrink {
-    font-family: 'Poppins';
-    font-size: 30px;
-    font-weight: 700;
-    color: #0b132a;
-}
-.textsizefood {
-    font-family: 'Poppins';
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 23px;
-}
-.wrapper-btn-method {
-    gap: 27px;
-}
-.btn-method-delivery {
-    width: 30%;
-    height: 72px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e7e5e5;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #4F5665;
-}
-.wrapper-delivery {
-    margin-bottom: 80px;
-}
-.button-save, .button-cancel {
-    width: 100%;
-    height: 98px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    border: none;
+.button-save,
+.button-cancel {
+  width: 100%;
+  height: 98px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  border: none;
 }
 .button-save {
-    background-color: #6a4029;
+  background-color: #6a4029;
 }
 .button-cancel {
-    background-color: #e7e5e5;
+  background-color: #e7e5e5;
 }
-.text-save, .text-cancel {
-    font-family: 'Poppins';
-    font-size: 25px;
-    font-weight: 700;
+.text-save,
+.text-cancel {
+  font-family: "Poppins";
+  font-size: 25px;
+  font-weight: 700;
 }
 .text-save {
-    color: #ffffff;
+  color: #ffffff;
 }
 .text-cancel {
-    color: #4F5665;
+  color: #4f5665;
+}
+.wrapper-button {
+  margin-top: 60px;
 }
 .wrapper-button-hide {
   display: none;
@@ -211,6 +173,7 @@
   padding-right: 25px;
   font-family: "Poppins";
   font-size: 20px;
+  overflow:scroll;
 }
 
 @media (max-width: 1024px) {
@@ -235,38 +198,43 @@
     margin-top: 30px;
   }
 }
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .main-container {
     padding-bottom: 50px;
   }
-  .take-image, .choose-image  {
+  .take-image,
+  .choose-image {
     font-size: 18px;
   }
   .label-text {
     margin-top: 20px;
   }
   .input-div {
-    height: 50px;
+    height: 75px;
   }
-  .input-div, .input-div-right {
+  .input-div,
+  .input-div-right {
     font-size: 18px;
   }
   .input-div-right {
     margin-bottom: 30px;
   }
-  .btn, .wrapper-input {
+  .btn,
+  .wrapper-input {
     width: 100%;
   }
   .wrapper-circle {
     flex-direction: column;
   }
-  .wrapper-circle-drink, .wrapper-circle-food {
+  .wrapper-circle-drink,
+  .wrapper-circle-food {
     width: 100%;
   }
   .btn-method-delivery {
     text-align: center;
   }
-  .button-save, .button-cancel {
+  .button-save,
+  .button-cancel {
     height: 80px;
   }
   .circle {
@@ -278,6 +246,7 @@
   }
   .wrapper-button-hide {
     display: block;
+    margin-top: 50px;
   }
 }
 @media (max-width: 480px) {
@@ -288,7 +257,8 @@
     padding-left: 30px;
     padding-right: 30px;
   }
-  .wrapper-left, .wrapper-right {
+  .wrapper-left,
+  .wrapper-right {
     width: 100%;
   }
   .label-text {

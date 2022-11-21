@@ -67,6 +67,9 @@ function ProductDetail({ navigate }) {
       if (error.response.data.statusCode === 403) {
         navigate("/login");
       }
+      if (error.response.data.status === "You have to login first") {
+        navigate("/login");
+      }
     }
   };
   const getSize = async () => {
@@ -213,7 +216,7 @@ function ProductDetail({ navigate }) {
       onClickHandler("/detail-transaction");
     } catch (error) {
       console.log(error);
-      if (error.response.data.statusCode === 403) {
+      if (error.response.data.statusCode === 403 || error.response.data.statusCode === 401) {
         onClickHandler("/login");
       }
     }
@@ -379,10 +382,10 @@ function ProductDetail({ navigate }) {
                 <div className={styles.button}>
                   <button className={styles.btn1} onClick={handleAddCart}>Add to Cart</button>
                   <ToastContainer />
-                  <button className={styles.btn1} onClick={handleEditProduct}>
+                  <button className={styles.btn2} onClick={handleEditProduct}>
                     Edit product
                   </button>
-                  <button className={styles.btn2} onClick={handleDeleteProduct}>
+                  <button className={styles.btn3} onClick={handleDeleteProduct}>
                     Delete menu
                   </button>
                   <ToastContainer />

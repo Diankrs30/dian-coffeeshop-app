@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 import icon from "../../assets/img/photo-camera-black-tool 4.png";
 
-function EditPromo() {
+function EditPromo({ navigate }) {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.getDetailProduct.detail);
   const [body, setBody] = useState({
@@ -49,26 +49,21 @@ function EditPromo() {
                   Choose from gallery
                 </button>
                 <div className={styles["wrapper-input"]}>
-                  <div className={styles["wrapper-input-discount"]}>
-                    <label className={styles["label-text"]}>
-                      Enter the discount:
-                    </label>
-                    <input
-                      className={styles["input-div"]}
-                      placeholder="Input discount"
-                    ></input>
-                  </div>
                   <div className={styles["wrapper-expired-date"]}>
                     <label className={styles["label-text"]}>
                       Expired date:
                     </label>
                     <input
                       className={styles["input-div"]}
+                      id={styles.time1}
                       placeholder="Select start date"
+                      type="date"
                     ></input>
                     <input
                       className={styles["input-div"]}
                       placeholder="Select end date"
+                      type="time"
+                      name="timestamp"
                     ></input>
                   </div>
                   <div className={styles["wrapper-input-code"]}>
@@ -107,16 +102,23 @@ function EditPromo() {
                     />
                   </div>
                   <div>
-                    <p className={styles["label-text-form"]}>
-                      Input product:
-                    </p>
+                    <p className={styles["label-text-form"]}>Product name:</p>
                     <p className={styles["text-click"]}>
-                      Click product you want to use for this promo
+                      Product used this promo
                     </p>
-                    <select className={styles["dropdown-product"]}>
-                      <option value="">Product name: </option>
-                      <option></option>
-                    </select>
+                    <input
+                      className={styles["input-div"]}
+                      placeholder="Product name"
+                    ></input>
+                  </div>
+                  <div className={styles["wrapper-input-discount"]}>
+                    <label className={styles["label-text"]}>
+                      Enter the discount:
+                    </label>
+                    <input
+                      className={styles["input-div"]}
+                      placeholder="Input discount"
+                    ></input>
                   </div>
                   <div className={styles["wrapper-button"]}>
                     <button
@@ -184,4 +186,4 @@ function EditPromo() {
   );
 }
 
-export default EditPromo;
+export default withNavigate(EditPromo);

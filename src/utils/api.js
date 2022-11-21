@@ -174,6 +174,7 @@ export const deleteProduct = (id) => {
 export const createPromo = (body) => {
   const login = JSON.parse(localStorage.getItem("login"));
   const token = login.token;
+  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',body);
   const URL = HOST + "/promos/create_promo";
   return axios.post(URL, body, {
     headers: {

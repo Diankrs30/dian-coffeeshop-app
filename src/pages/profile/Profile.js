@@ -122,9 +122,25 @@ function Profile({ navigate }) {
     setOpen(!open);
   };
 
+  const getProfile = async () => {
+    try {
+      await dispatch(userActions.getProfileAction());
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.statusCode === 403) {
+        localStorage.removeItem("login");
+        navigate("/login");
+      }
+      if (error.response.data.status === "You have to login first") {
+        localStorage.removeItem("login");
+        navigate("/login");
+      }
+
+    }
+  }
+
   useEffect(() => {
-    // getDataProfile();
-    dispatch(userActions.getProfileAction());
+    getProfile();
   }, []);
 
   return (
@@ -407,7 +423,7 @@ function Profile({ navigate }) {
         open={open}
         setOpen={setOpen}
         title="Log out"
-        body="Are you want to log out?"
+        body="Are you sure want to log out?"
       />
     </>
   );

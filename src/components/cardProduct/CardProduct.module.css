@@ -52,12 +52,15 @@
 }
 .text-name {
   width: 110px;
+  height: 50px;
   font-family: "Poppins";
   font-weight: 900;
   font-size: 26px;
   line-height: 25px;
   color: #000000;
   margin: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .text-price {
   font-family: "Poppins";

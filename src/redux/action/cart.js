@@ -1,5 +1,5 @@
 // import { getProfile } from "../../utils/api";
-import actionStrings from "./actionStrings";;
+import actionStrings from "./actionStrings";
 
 const cartAction = (payload) => {
   return {

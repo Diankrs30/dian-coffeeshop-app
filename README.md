@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# <div align="center"> Dian Coffeeshop App </div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,javascript,html,css" />
+  </a>
+</p>
 
-In the project directory, you can run:
+<br/>
+Dian coffee shop is a web application that sells foods, coffee, and beverage. with this application, customers can order more easily from coffee shop.
+</div>
 
-### `npm start`
+FazzPay is a digital wallet (e-Wallet) that works like magic!
 
-Runs the app in the development mode.\
+## Contents
+
+- [Features](#features)
+- [Run Application](#how-to-run-the-application)
+- [Deployment](#deployment)
+- [Screenshots](#screenshots)
+- [Related Projects](#related-projects)
+- [Authors](#authors)
+
+## Features
+
+### Customer
+
+- Auth
+    - Login
+    - Logout
+- User
+    - Register
+    - Forgot Password
+    - Edit Profile
+- Product
+- Promo
+- Transaction
+
+### Admin
+
+- Auth
+    - Login
+    - Logout
+- User
+    - Forgot Password
+- Product
+    - Add Product
+    - Edit Product
+- Promo
+    - Add Promo
+    - Edit Promo
+- Transaction
+    - Edit Transaction
+
+## How to Run the Application
+
+### 1. Clone this repository
+
+Clone this repository by run the following code:
+
+```
+$ git clone <this-repo-url>
+```
+
+### 2. Install dependency packages
+
+Install dependency packages by run the following code inside project folder:
+
+```
+$ npm install
+```
+
+### 3. Configure .env file
+
+Configure .env file by create file named .env inside project folder and add this line to the file:
+
+```
+NEXT_PUBLIC_BACKEND_URL = "https://dian-coffeshop.vercel.app/"
+```
+
+### 4. Run projects
+
+Run this projects by run the following code:
+
+```
+$ npm start
+```
+
+It runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## Deployment
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Vercel deploy link] (https://dian-coffeeshop-app.vercel.app/)
 
-### `npm run build`
+## Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<div align="center">
+<img width="500" src="src/assets/img/home.png" alt="Landing page">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img width="500" src="src/assets/img/login.png" alt="Login page">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img width="500" src="src/sssets/img/signup.png" alt="Signup">
 
-### `npm run eject`
+<img width="500" src="src/assets/img/profile.png" alt="Dashboard">
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img width="500" src="src/assets/img/product.png" alt="Transfer">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<!-- <img width="500" src="src/Assets/topup-fazzpay.png" alt="Top up"> -->
+</div>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Related Projects
+[Related Projects link] (https://dian-coffeshop.vercel.app/)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Authors
+(https://github.com/Diankrs30/)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -1,6 +1,6 @@
 # <div align="center"> Dian Coffeeshop App </div>
 
-<div align="center">
+<div>
 
 <p align="center">
   <a href="https://skillicons.dev">
@@ -12,7 +12,6 @@
 Dian coffee shop is a web application that sells foods, coffee, and beverage. with this application, customers can order more easily from coffee shop.
 </div>
 
-FazzPay is a digital wallet (e-Wallet) that works like magic!
 
 ## Contents
 
@@ -105,7 +104,7 @@ You may also see any lint errors in the console.
 
 <img width="500" src="src/assets/img/login.png" alt="Login page">
 
-<img width="500" src="src/sssets/img/signup.png" alt="Signup">
+<img width="500" src="src/assets/img/signup.png" alt="Signup">
 
 <img width="500" src="src/assets/img/profile.png" alt="Dashboard">
 

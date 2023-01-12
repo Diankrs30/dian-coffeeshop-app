@@ -88,14 +88,14 @@ $ npm start
 ```
 
 It runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [local host](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ## Deployment
 
-[Vercel deploy link] (https://dian-coffeeshop-app.vercel.app/)
+[Vercel deploy link](https://dian-coffeeshop-app.vercel.app/)
 
 ## Screenshots
 
@@ -114,7 +114,7 @@ You may also see any lint errors in the console.
 </div>
 
 ## Related Projects
-[Related Projects link] (https://dian-coffeshop.vercel.app/)
+[Related Projects link](https://dian-coffeshop.vercel.app/)
 
 ## Authors
 [@Dian_Kartika](https://github.com/Diankrs30)

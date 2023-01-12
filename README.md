@@ -117,6 +117,6 @@ You may also see any lint errors in the console.
 [Related Projects link] (https://dian-coffeshop.vercel.app/)
 
 ## Authors
-(https://github.com/Diankrs30/)
+[@Dian_Kartika](https://github.com/Diankrs30)
 
 

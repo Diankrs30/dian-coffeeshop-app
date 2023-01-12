@@ -76,7 +76,7 @@ $ npm install
 Configure .env file by create file named .env inside project folder and add this line to the file:
 
 ```
-NEXT_PUBLIC_BACKEND_URL = "https://dian-coffeshop.vercel.app/"
+NEXT_PUBLIC_BACKEND_URL = [env]("https://dian-coffeshop.vercel.app/")
 ```
 
 ### 4. Run projects

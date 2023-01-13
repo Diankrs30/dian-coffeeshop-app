@@ -114,7 +114,7 @@ You may also see any lint errors in the console.
 </div>
 
 ## Related Projects
-[Related Projects link](https://dian-coffeshop.vercel.app/)
+[Dian Coffeeshop backend](https://dian-coffeshop.vercel.app/)
 
 ## Authors
 [@Dian_Kartika](https://github.com/Diankrs30)
